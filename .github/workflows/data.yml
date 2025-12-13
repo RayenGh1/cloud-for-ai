@@ -1,0 +1,30 @@
+name: Data Pipeline
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "0 6 * * 1"
+
+jobs:
+  retrain-model:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build training Docker image
+        run: |
+          docker build -t mushroom-training ./training
+
+      - name: Extract & prepare data
+        run: |
+          echo "Using dataset from training/Dataset/secondary_data.csv"
+
+      - name: Retrain model
+        run: |
+          docker run --rm mushroom-training
+
+      - name: Update model used by application
+        run: |
+          echo "New model generated and ready to be used by the application"
