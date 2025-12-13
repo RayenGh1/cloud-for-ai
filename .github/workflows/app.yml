@@ -1,0 +1,20 @@
+name: Application Pipeline
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch: {}
+
+jobs:
+  build-docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build application container
+        run: docker build -t mushroom-app ./app
+
+      - name: Build training container
+        run: docker build -t mushroom-training ./training
