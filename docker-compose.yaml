@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  trainer:
+    build: ./training
+    volumes:
+      - model_store:/app/output
+    command: >
+      sh -c "python train.py && cp model.pkl /app/output/model.pkl"
+
+  app:
+    build: ./app
+    depends_on:
+      - trainer
+    environment:
+      - MODEL_PATH=/app/model/model.pkl
+    volumes:
+      - model_store:/app/model
+    ports:
+      - "5000:5000"
+
+volumes:
+  model_store:
