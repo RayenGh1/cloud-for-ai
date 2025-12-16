@@ -27,4 +27,4 @@ jobs:
 
       - name: Update model used by application
         run: |
-          echo "New model generated and ready to be used by the application"
+          echo "New model generated and ready to be used by the application"s

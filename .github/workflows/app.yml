@@ -15,6 +15,3 @@ jobs:
 
       - name: Build application container
         run: docker build -t mushroom-app ./app
-
-      - name: Build training container
-        run: docker build -t mushroom-training ./training
